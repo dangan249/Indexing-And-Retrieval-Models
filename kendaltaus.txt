@@ -1,0 +1,12 @@
+Kendall Tau coefficient metric: resultsVSM1 VS resultsVSM2
+concordantCount: 26
+discordantCount: 374
+-0.87
+Kendall Tau coefficient metric: resultsVSM1 VS resultsBM25
+concordantCount: 64
+discordantCount: 336
+-0.68
+Kendall Tau coefficient metric: resultsVSM2 VS resultsBM25
+concordantCount: 33
+discordantCount: 367
+-0.835
