@@ -28,55 +28,13 @@ public class Indexer {
 				for(String token : tokens) {
 					if(isValidToken(token)) {
 						dictionary.add(token);
-
-						// initialize the inverted list if needed
-						List<DocumentTF> documentTFs;
-						if(invertedIndex.containsKey(token)) {
-							documentTFs = invertedIndex.get(token);
-						} else {
-							documentTFs = new ArrayList<DocumentTF>();
-							invertedIndex.put(token, documentTFs);
-						}
-
-
-						// TODO: check if we can speed this up by implement searching better
-						// check if we already have a DocumentTF entry for this token (== check if we have seen this token already in this doc)
-						DocumentTF documentTFForCurrentToken = null;
-						for(DocumentTF documentTF : documentTFs) {
-							if(documentTF.docId.equals(currentDocId)) {
-								documentTFForCurrentToken = documentTF;
-							}
-						}
-
-						if(documentTFForCurrentToken == null) {
-							documentTFs.add(new DocumentTF(currentDocId, 1));
-						} else {
-							documentTFForCurrentToken.increaseFreqCount();
-						}
+					Utils.updateInvertedIndex(invertedIndex, token, currentDocId);
 					}
 				}
 			}
 		}
 
-		writeResults();
-	}
-
-	private void writeResults() {
-		// write index
-		StringBuilder stringBuilder = new StringBuilder();
-		for(String word : dictionary) {
-			System.out.println(word);
-			stringBuilder.append(word);
-			stringBuilder.append(" ");
-			List<DocumentTF> documentTFs = invertedIndex.get(word);
-			Collections.sort(documentTFs);
-			for(DocumentTF documentTF : documentTFs) {
-				stringBuilder.append(documentTF);
-				stringBuilder.append(" ");
-			}
-			stringBuilder.append("\n");
-		}
-		Utils.saveStringToFile(stringBuilder.toString(), outputPath);
+		Utils.writeInvertedIndex(dictionary, invertedIndex, outputPath);
 	}
 
 	private boolean isValidToken(String word) {
