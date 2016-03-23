@@ -24,5 +24,5 @@ Otherwise, follow these instructions to build the jar with all dependencies and 
 -- The result of a build will be stored in the `target` directory
 
 RUN INSTRUCTIONS:
-java -jar {path to a jar} arguments 
+java -jar {path to a jar} arguments
 
